@@ -4,7 +4,7 @@
   "description": "一个简易的懒加载瀑布流",
   "main": "dist/fall.min.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gulp release",
     "start": "gulp",
     "build": "gulp release"
   },
