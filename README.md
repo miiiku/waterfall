@@ -11,7 +11,7 @@
 ## HTML
 
 ``` html
-<!-- 瀑布流容器 -->
+<!-- 瀑布流容器 -->
 <div class="fall-box"></div>
 
 <!-- 引入JS -->
@@ -76,7 +76,7 @@
 ## HTML
 
 ``` html
-<!-- 瀑布流容器 -->
+<!-- 瀑布流容器 -->
 <div class="fall-box">
     <!-- 图片内容 -->
     <div class="fall-item" data-color="0x868c7f">
@@ -119,7 +119,7 @@
 
 ``` js
     {
-        datas   : Array,        // 图片的数据 默认: null
+        datas   : Array,        // 图片的数据 默认: null
         minWidth: Number,       // 图片的最小宽度 默认: 350
         spacing : Number,       // 间距 默认: 10
         bgColor : String,       // 图片格子的背景颜色 默认: #CCCCCC
