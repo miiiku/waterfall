@@ -1,0 +1,34 @@
+{
+  "name": "fall",
+  "version": "1.0.0",
+  "description": "一个简易的懒加载瀑布流",
+  "main": "dist/fall.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp",
+    "build": "gulp release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miiiku/fall.git"
+  },
+  "keywords": [
+    "photo",
+    "fall",
+    "waterfall"
+  ],
+  "author": "miiiku",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miiiku/fall/issues"
+  },
+  "homepage": "https://github.com/miiiku/fall#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-rename": "^1.4.0",
+    "gulp-uglify": "^3.0.1"
+  }
+}

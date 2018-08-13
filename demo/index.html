@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>fall demo</title>
+</head>
+<body>
+    <div class="fall-box"></div>
+    <script src="../dist/waterfall.min.js"></script>
+    <script>
+        var images = [
+            {
+                width: "4032",
+                height: "3024",
+                color: "0x868c7f",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1788.jpg",
+            },
+            {
+                width: "3024",
+                height: "4032",
+                color: "0x757368",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1795.jpg",
+            },
+            {
+                width: "3024",
+                height: "4032",
+                color: "0x899685",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg",
+            },
+            {
+                width: "4032",
+                height: "3024",
+                color: "0x74746f",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg",
+            },
+            {
+                width: "3024",
+                height: "4032",
+                color: "0x966e3f",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
+            },
+            {
+                width: "3024",
+                height: "4032",
+                color: "0x61574c",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg",
+            },
+            {
+                width: "3024",
+                height: "4032",
+                color: "0x698b94",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1108.jpg",
+            }
+        ]
+
+        waterfall(".fall-box", { datas: images })
+    </script>
+</body>
+</html>
