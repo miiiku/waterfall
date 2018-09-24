@@ -6,7 +6,7 @@
     } else {
         win.waterfall = factory
     }
-}(window, function waterfall (root, options) {
+}(window, function waterfall (root, options = {}) {
 
     var container, images, unloadImages, col, colW, table;
 
@@ -119,16 +119,22 @@
     const resizeEvent = () => {
         // 获取列数和每个item的宽度
         col = Math.floor((container.clientWidth - spacing) / (minWidth + spacing))
+
+        // 如果容器宽度小于了图片最小宽度，默认为1列
+        if (col < 1) col = 1
+
         colW = Math.floor((container.clientWidth - spacing) / col - spacing)
-        table = {}
 
         // 如果图片少于列数，平分居中
         if (images.length < col) {
             col = images.length
             colW = Math.floor((container.clientWidth - spacing) / col - spacing)
         }
+        
+        table = {}
 
-        for (let i = 0; i < col; i++) { table[i] = 0 }
+        for (let i = 0; i < col; i++) { table[i] = spacing }
+        
         setpo()
     }
 
