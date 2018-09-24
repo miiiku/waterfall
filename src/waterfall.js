@@ -30,8 +30,10 @@
         if (!images.length) return
 
         container.style.position = "relative"
-        window.onresize = resizeEvent
-        window.onscroll = scrollEvent
+
+        window.addEventListener("resize", resizeEvent)
+        window.addEventListener("scroll", scrollEvent)
+        
         resizeEvent()
         scrollEvent()
     }
