@@ -141,7 +141,7 @@
     }
 
     const scrollEvent = () => {
-        if (unloadImages.length < 1) return
+        if (unloadImages.length < 1) return window.removeEventListener("scroll", scrollEvent)
         for (let i = unloadImages.length; i--;) {
             getBound(unloadImages[i]) && loadImage(unloadImages[i], i)
         }
