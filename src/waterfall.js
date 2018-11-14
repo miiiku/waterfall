@@ -14,6 +14,7 @@
     var minWidth    = options.minWidth  || 350
     var datas       = options.datas     || null
     var bgColor     = options.bgColor   || "#CCCCCC"
+    var parentBox   = options.parentBox ? document.querySelector(options.parentBox) : window
 
     const init = () => {
         if (!root || typeof root != "string") return
@@ -29,10 +30,17 @@
         unloadImages = images.concat()
         if (!images.length) return
 
+        images.forEach(item => {
+            let img = item.querySelector("img")
+            img.style.display = "block"
+            img.style.width = "100%"
+            img.style.maxWidth = "100%"
+        })
+
         container.style.position = "relative"
 
         window.addEventListener("resize", resizeEvent)
-        window.addEventListener("scroll", scrollEvent)
+        parentBox.addEventListener("scroll", scrollEvent)
         
         resizeEvent()
         scrollEvent()
@@ -43,7 +51,7 @@
         datas.forEach(item => {
             images += `
                 <div class="fall-item" ${item.color ? "data-color='" + item.color + "'" : ""} >
-                    <img data-width="${item.width}" data-height="${item.height}" data-src="${item.url}" style="display: block; width: 100%; max-width: 100%;" />
+                    <img data-width="${item.width}" data-height="${item.height}" data-src="${item.url}" />
                 </div>
             `
         })
@@ -75,9 +83,13 @@
     }
 
     const getBound = (img) => {
-        var bound = img.getBoundingClientRect()
-        var clientHeight = window.innerHeight
-        return bound.top <= clientHeight
+        var top = img.getBoundingClientRect().top
+
+        if (parentBox.innerHeight) {
+            return top <= parentBox.innerHeight
+        } else {
+            return top <= parentBox.clientHeight + parentBox.getBoundingClientRect().top
+        }
     }
 
     const loadImage = (imgItem, index) => {
@@ -116,6 +128,11 @@
 
         var maxColNum = getMaxCol(table)
         container.style.height = px(table[maxColNum])
+
+        // 取消滚动条
+        if (table[maxColNum] > parentBox.innerHeight || parentBox.clientHeight) {
+            setTimeout(() => { resizeEvent() }, 0)
+        }
     }
 
     const resizeEvent = () => {
@@ -141,7 +158,7 @@
     }
 
     const scrollEvent = () => {
-        if (unloadImages.length < 1) return window.removeEventListener("scroll", scrollEvent)
+        if (unloadImages.length < 1) return parentBox.removeEventListener("scroll", scrollEvent)
         for (let i = unloadImages.length; i--;) {
             getBound(unloadImages[i]) && loadImage(unloadImages[i], i)
         }

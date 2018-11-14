@@ -119,10 +119,11 @@
 
 ``` js
     {
-        datas   : Array,        // 图片的数据 默认: null
-        minWidth: Number,       // 图片的最小宽度 默认: 350
-        spacing : Number,       // 间距 默认: 10
-        bgColor : String,       // 图片格子的背景颜色 默认: #CCCCCC
+        datas       : Array,        // 图片的数据 默认: null
+        minWidth    : Number,       // 图片的最小宽度 默认: 350
+        spacing     : Number,       // 间距 默认: 10
+        bgColor     : String,       // 图片格子的背景颜色 默认: #CCCCCC
+        parentBox   : String,       // 图片的显示的父容器(图片内容滚动时容器) 默认为window对象
     }
 ```
 
