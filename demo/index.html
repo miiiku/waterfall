@@ -7,7 +7,8 @@
     <title>fall demo</title>
     <style>
         * { margin: 0; padding: 0; }
-        /* main { width: 50vw; height: 50vh; margin: 25vh auto; border: 1px solid #e1e1e1; overflow: hidden auto; } */
+        /* .fall-box { margin: 20px; } */
+        main { width: 80vw; height: 80vh; margin: 5vh auto; border: 1px solid #e1e1e1; overflow: hidden auto; }
     </style>
 </head>
 <body>
@@ -33,6 +34,12 @@
             {
                 width: "3024",
                 height: "4032",
+                color: "0x966e3f",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
+            },
+            {
+                width: "3024",
+                height: "4032",
                 color: "0x899685",
                 url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg",
             },
@@ -51,8 +58,20 @@
             {
                 width: "3024",
                 height: "4032",
+                color: "0x966e3f",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
+            },
+            {
+                width: "3024",
+                height: "4032",
                 color: "0x61574c",
                 url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg",
+            },
+            {
+                width: "3024",
+                height: "4032",
+                color: "0x966e3f",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
             },
             {
                 width: "3024",
@@ -67,6 +86,12 @@
                 url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg",
             },
             {
+                width: "3024",
+                height: "4032",
+                color: "0x61574c",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg",
+            },
+            {
                 width: "4032",
                 height: "3024",
                 color: "0x74746f",
@@ -84,11 +109,24 @@
                 color: "0x61574c",
                 url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg",
             },
+            {
+                width: "3024",
+                height: "4032",
+                color: "0x899685",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg",
+            },
+            {
+                width: "4032",
+                height: "3024",
+                color: "0x61574c",
+                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg",
+            },
         ]
 
         waterfall(".fall-box", {
             datas: images,
-            // parentBox: "main",
+            direction: "horizontal",
+            parentBox: "main",
         })
     </script>
 </body>
