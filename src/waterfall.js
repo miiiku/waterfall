@@ -8,13 +8,15 @@
     }
 }(window, function waterfall (root, options = {}) {
 
-    var container, images, unloadImages, table;
+    var container, images, table, loads;
 
     var direction       = options.direction     || "vertical"
     var spacing         = options.spacing       || 20
     var baseWidth       = options.baseWidth     || 350
     var baseHeight      = options.height        || 260
     var datas           = options.datas         || null
+    var rowClass        = options.rowClass      || ""
+    var itemClass       = options.itemClass     || ""
     var bgColor         = options.bgColor       || "#CCCCCC"
     var parentBox       = options.parentBox ? document.querySelector(options.parentBox) : window
 
@@ -47,37 +49,42 @@
 
         if (datas && datas.length > 0) {
             container.innerHTML = ""
-            createImages()
+            images = Array.from(createImages())
+        } else {
+            images = Array.from(container.children)
         }
 
-        images = Array.from(container.children)
-        unloadImages = images.concat()
         if (!images.length) return
+        loads = images.length
 
         images.forEach(item => {
             let img = item.querySelector("img")
+            img.onload = function () {
+                loads --
+                if (loads <= 0) {
+                    resizeEvent()
+                }
+            }
             img.style.display = "block"
         })
 
         container.style.position = "relative"
 
         window.addEventListener("resize", resizeEvent)
-        parentBox.addEventListener("scroll", scrollEvent)
-        
-        resizeEvent()
-        scrollEvent()
     }
 
     const createImages = () => {
-        var images = ""
+        let divDOM = document.createElement("div")
+        let imageList = ""
         datas.forEach(item => {
-            images += `
-                <div class="fall-item" ${item.color ? "data-color='" + item.color + "'" : ""} style="height: 100%;" >
-                    <img data-width="${item.width}" data-height="${item.height}" data-src="${item.url}" />
+            imageList += `
+                <div class="fall-item${itemClass && ' ' + itemClass}">
+                    <img alt="${item.url}" src="${item.url}" style="max-width: 100%;"/>
                 </div>
             `
         })
-        container.innerHTML = images
+        divDOM.innerHTML = imageList
+        return divDOM.children
     }
 
     const px = (number) => {
@@ -104,23 +111,6 @@
         return n
     }
 
-    const getBound = (img) => {
-        var top = img.getBoundingClientRect().top
-
-        if (parentBox.innerHeight) {
-            return top <= parentBox.innerHeight
-        } else {
-            return top <= parentBox.clientHeight + parentBox.getBoundingClientRect().top
-        }
-    }
-
-    const loadImage = (imgItem, index) => {
-        var img = imgItem.querySelector("img")
-        var src = img.dataset.src
-        img.src = src
-        unloadImages.splice(index, 1)
-    }
-
     const horizontalRender = () => {
         // 获取一行的宽度
         let rwt = container.clientWidth
@@ -145,9 +135,10 @@
 
         images.forEach((item, index) => {
             let image = item.querySelector('img')
-            let w = (baseHeight / image.dataset.height) * image.dataset.width
+            let w = (baseHeight / image.naturalHeight) * image.naturalWidth
 
             image.style.height = "100%"
+            image.style.maxHeight = "100%"
 
             if (row.children.length > 0) {
                 w += spacing
@@ -253,13 +244,6 @@
             horizontalRender()
         } else {
             verticalRender()
-        }
-    }
-
-    const scrollEvent = () => {
-        if (unloadImages.length < 1) return parentBox.removeEventListener("scroll", scrollEvent)
-        for (let i = unloadImages.length; i--;) {
-            getBound(unloadImages[i]) && loadImage(unloadImages[i], i)
         }
     }
 
