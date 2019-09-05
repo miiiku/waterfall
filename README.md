@@ -22,48 +22,23 @@
 
 ``` js
     var images = [
-        {
-            width: "4032",
-            height: "3024",
-            color: "0x868c7f",
-            url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1788.jpg",
-        },
-        {
-            width: "3024",
-            height: "4032",
-            color: "0x757368",
-            url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1795.jpg",
-        },
-        {
-            width: "3024",
-            height: "4032",
-            color: "0x899685",
-            url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg",
-        },
-        {
-            width: "4032",
-            height: "3024",
-            color: "0x74746f",
-            url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg",
-        },
-        {
-            width: "3024",
-            height: "4032",
-            color: "0x966e3f",
-            url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
-        },
-        {
-            width: "3024",
-            height: "4032",
-            color: "0x61574c",
-            url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg",
-        },
-        {
-            width: "3024",
-            height: "4032",
-            color: "0x698b94",
-            url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1108.jpg",
-        }
+        { url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1788.jpg" },
+        { url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1795.jpg" },
+        { url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg" },
+        { url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg" },
+        { url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg" },
+        { url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg" },
+        { url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1108.jpg" },
+    ]
+
+    var images = [
+        "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1788.jpg",
+        "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1795.jpg",
+        "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg",
+        "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg",
+        "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
+        "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg",
+        "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1108.jpg",
     ]
 
     window.onload = function () {
@@ -79,26 +54,26 @@
 <!-- 瀑布流容器 -->
 <div class="fall-box">
     <!-- 图片内容 -->
-    <div class="fall-item" data-color="0x868c7f">
-        <img data-width="4032" data-height="3024" data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1788.jpg">
+    <div class="fall-item">
+        <img data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1788.jpg">
     </div>
-    <div class="fall-item" data-color="0x757368">
-        <img data-width="3024" data-height="4032" data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1795.jpg">
+    <div class="fall-item">
+        <img data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1795.jpg">
     </div>
-    <div class="fall-item" data-color="0x899685">
-        <img data-width="3024" data-height="4032" data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg">
+    <div class="fall-item">
+        <img data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg">
     </div>
-    <div class="fall-item" data-color="0x74746f">
-        <img data-width="4032" data-height="3024" data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg">
+    <div class="fall-item">
+        <img data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg">
     </div>
-    <div class="fall-item" data-color="0x966e3f">
-        <img data-width="3024" data-height="4032" data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg">
+    <div class="fall-item">
+        <img data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg">
     </div>
-    <div class="fall-item" data-color="0x61574c">
-        <img data-width="3024" data-height="4032" data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg">
+    <div class="fall-item">
+        <img data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg">
     </div>
-    <div class="fall-item" data-color="0x698b94">
-        <img data-width="3024" data-height="4032" data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1108.jpg">
+    <div class="fall-item">
+        <img data-src="https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1108.jpg">
     </div>
 </div>
 
@@ -119,26 +94,16 @@
 
 ``` js
     {
+        direction   : String,       // 布局模式（v,h）
         datas       : Array,        // 图片的数据 默认: null
-        minWidth    : Number,       // 图片的最小宽度 默认: 350
+        baseWidth   : Number,       // 图片的基准宽度 默认: 350（垂直布局）
+        baseHeight  : Number,       // 图片的基准高度 默认: 260（水平布局）
         spacing     : Number,       // 间距 默认: 10
-        bgColor     : String,       // 图片格子的背景颜色 默认: #CCCCCC
-        parentBox   : String,       // 图片的显示的父容器(图片内容滚动时容器) 默认为window对象
+        accuracy    : Number,       // 精度 默认: 2
+        rowClass    : String,       // 一行的className（水平布局）
+        itemClass   : String,       // 单张图的className(垂直布局/水平布局)
     }
 ```
-
-## datas *data format*
-
-``` js
-    {
-        width   : Number,       // 图片的原始宽度
-        height  : Number,       // 图片的原始高度
-        url     : String,       // 图片的地址
-        color   : String,       // 图片的主色调 可不填(默认为bgColor)
-    }
-```
-
-### color和bgColor支持的格式: *rgb(204, 204, 204)*, *rgba(204, 204, 204, 1)*, *#CCCCCC*, *0xCCCCCC*
 
 
 # LICENSE
