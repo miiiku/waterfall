@@ -7,126 +7,60 @@
     <title>fall demo</title>
     <style>
         * { margin: 0; padding: 0; }
-        .fall-box { margin: 20px; }
-        main { width: 80vw; height: 80vh; margin: 5vh auto; border: 1px solid #e1e1e1; overflow: hidden auto; }
+        main { overflow: hidden auto; }
+        
+        .img-item {
+            border-radius: 4px;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
     <main>
-        <div class="fall-box"></div>
+        <div class="fall-box">
+            <div><img src="https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70434228_p0.png" alt=""></div>
+            <div><img src="https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/69989278_p0.png" alt=""></div>
+        </div>
     </main>
     <!-- <script src="../dist/waterfall.min.js"></script> -->
     <script src="../src/waterfall.js"></script>
     <script>
         var images = [
-            {
-                width: "4032",
-                height: "3024",
-                color: "0x868c7f",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1788.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x757368",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1795.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x966e3f",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x899685",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg",
-            },
-            {
-                width: "4032",
-                height: "3024",
-                color: "0x74746f",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x966e3f",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x966e3f",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x61574c",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x966e3f",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x698b94",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1108.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x899685",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x61574c",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg",
-            },
-            {
-                width: "4032",
-                height: "3024",
-                color: "0x74746f",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x966e3f",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1597.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x61574c",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1206.jpg",
-            },
-            {
-                width: "3024",
-                height: "4032",
-                color: "0x899685",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1789.jpg",
-            },
-            {
-                width: "4032",
-                height: "3024",
-                color: "0x61574c",
-                url: "https://qiniu.miiiku.xyz/attach/5b62b3a1db54f8076bb387c7/IMG_1453.jpg",
-            },
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/69151767_p0.png",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/69956142_p0.png",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/69989278_p0.png",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70420853_p0.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70428480_p0.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70434228_p0.png",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70441385_p0.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70442635_p0.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70448511_p0.png",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70449941_p0_master1200.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70453175_p0.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/QQ%E6%88%AA%E5%9B%BE20181126132928.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/TB2dARyuB8kpuFjSspeXXc7IpXa_3037771681-1.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/timg%20%281%29.jpeg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/timg%20%282%29.jpeg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/timg%20%283%29.jpeg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/timg.jpeg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/v2-3df2c450661ebee96b78475e0ee19129_r.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/v2-40a293437bdb797724b53405c033d7ea_r.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/v2-6a61444c93331835928f4172f2708ae1_r.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/wallhaven-605842.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/wallhaven-607294.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/wallhaven-611702.png",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/wallls.com_173433.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/wallls.com_180738.jpg",
+            "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/wallls.com_181047.jpg",
         ]
 
         waterfall(".fall-box", {
-            datas: images,
-            direction: "horizontal",
+            // datas: images,
+            direction: "h",
             parentBox: "main",
+            spacing: 20,
+            rowClass: "img-row",
+            itemClass: "img-item",
         })
     </script>
 </body>

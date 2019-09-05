@@ -10,15 +10,22 @@
 
     var container, images, table, loads;
 
-    var direction       = options.direction     || "vertical"
+    // 布局类型（垂直|水平）
+    var direction       = options.direction     || "v"
+    // 间距
     var spacing         = options.spacing       || 20
+    // 基础宽
     var baseWidth       = options.baseWidth     || 350
+    // 基础高
     var baseHeight      = options.height        || 260
+    // 精度（在进行图片等比缩放/放大时，计算出的宽/高可能会有极小的误差，导致超过容器宽/高 吧计算的宽/高减去精度值以确保不会超过容器）
+    var accuracy        = options.accuracy      || 2
+    // 图片集合
     var datas           = options.datas         || null
+    // 一行的类名（在direction为vertical生效）
     var rowClass        = options.rowClass      || ""
+    // 单个图片的类名
     var itemClass       = options.itemClass     || ""
-    var bgColor         = options.bgColor       || "#CCCCCC"
-    var parentBox       = options.parentBox ? document.querySelector(options.parentBox) : window
 
     const throttle = (fn, delay) => {
         let timer = null
@@ -42,14 +49,17 @@
         return value
     }
 
+    const toDecimal = number => {
+        return Math.floor(number * 100) / 100
+    }
+
     const init = () => {
         if (!root || typeof root != "string") return
 
         container  = document.querySelector(root)
 
         if (datas && datas.length > 0) {
-            container.innerHTML = ""
-            images = Array.from(createImages())
+            images = Array.from(buildList())
         } else {
             images = Array.from(container.children)
         }
@@ -58,8 +68,23 @@
         loads = images.length
 
         images.forEach(item => {
+            if (itemClass && !item.classList.contains(itemClass)) {
+                item.classList.add(itemClass)
+            }
             let img = item.querySelector("img")
             img.onload = function () {
+                loads --
+                if (loads <= 0) {
+                    resizeEvent()
+                }
+            }
+            img.onerror = function(err) {
+                images.forEach((item, index) => {
+                    let img = item.querySelector("img")
+                    if (img.src === err.target.src) {
+                        images.splice(index, 1)
+                    }
+                })
                 loads --
                 if (loads <= 0) {
                     resizeEvent()
@@ -69,19 +94,28 @@
         })
 
         container.style.position = "relative"
+        container.style.overflow = "hidden"
 
-        window.addEventListener("resize", resizeEvent)
+        window.addEventListener("resize", throttle(resizeEvent, 500))
     }
 
-    const createImages = () => {
+    const buildList = () => {
         let divDOM = document.createElement("div")
         let imageList = ""
         datas.forEach(item => {
-            imageList += `
-                <div class="fall-item${itemClass && ' ' + itemClass}">
-                    <img alt="${item.url}" src="${item.url}" style="max-width: 100%;"/>
-                </div>
-            `
+            if (typeof item === "string") {
+                imageList += `
+                    <div class="fall-item">
+                        <img alt="${item}" src="${item}"/>
+                    </div>
+                `
+            } else {
+                imageList += `
+                    <div class="fall-item">
+                        <img alt="${item.url}" src="${item.url}"/>
+                    </div>
+                `
+            }
         })
         divDOM.innerHTML = imageList
         return divDOM.children
@@ -112,75 +146,87 @@
     }
 
     const horizontalRender = () => {
+        container.innerHTML = "";
         // 获取一行的宽度
-        let rwt = container.clientWidth
-        let rwc = 0
-        let row = {
-            height: baseHeight,
-            children: [],
-        }
-        table = []
+        let rwt = container.clientWidth;
+        let rwc = 0;
+        let row = [], table = [];
 
-        // 清空内容
-        container.innerHTML = ""
+        const initRow = () => {
+            if (row.length < 1) return
 
-        const reset = () => {
+            let w = rwt - (row.length - 1) * spacing;
+            let d = 0, l = 0;
+
+            row.forEach(item => {
+                let img = item.querySelector("img");
+                d += img.width / img.height;
+            });
+
+            l = toDecimal(w / d) - accuracy;
+
+            row.forEach((item, index) => {
+                let img = item.querySelector("img");
+                let a = img.width / img.height * l;
+
+                img.style.height = l + "px";
+
+                if (index === row.length - 1) {
+                    img.style.width = "auto";
+                    item.style.marginRight = 0;
+                } else {
+                    img.style.width = a + "px";
+                    item.style.marginRight = spacing + "px";
+                }
+            });
+
             table.push(row)
             rwc = 0
-            row = {
-                height: baseHeight,
-                children: [],
-            }
+            row = []
         }
 
         images.forEach((item, index) => {
             let image = item.querySelector('img')
-            let w = (baseHeight / image.naturalHeight) * image.naturalWidth
+            // 先根据基本高度得到一个大概的宽度
+            let w = toDecimal((baseHeight / image.naturalHeight)) * image.naturalWidth
 
-            image.style.height = "100%"
-            image.style.maxHeight = "100%"
+            item.dataset.index = index
 
-            if (row.children.length > 0) {
-                w += spacing
-                item.style.marginLeft = spacing + 'px'
-            }
-
+            // 如果已经超过一行度高度，进行宽度竞争
             if (rwc + w > rwt) {
                 let exceed = rwc + w
                 let result = weight(rwt, rwc, exceed)
-                let scale = rwt / result
-                row.height = baseHeight * scale
-                if (result === rwc) {
-                    reset()
-                    return
-                }
+                // 如果竞争的结果是保持原图个数，进行换行
+                result === rwc && initRow()
             }
 
+            w += spacing
+
             rwc += w
-            row.children.push(item)
+            row.push(item)
 
             if (index >= images.length - 1) {
-                reset()
+                initRow()
             }
         })
 
         table.forEach((row, index) => {
             let flexRow = document.createElement("div")
+            flexRow.classList.add("fall-row")
+            flexRow.classList.add(rowClass)
             flexRow.style.display = "flex"
-            flexRow.style.height = row.height + 'px'
+            flexRow.style.justifyContent = "space-between";
 
             if (index < table.length - 1) {
-                flexRow.style.justifyContent = "space-between"
                 flexRow.style.marginBottom = spacing + "px"
             }
 
-            flexRow.append(...row.children)
+            flexRow.append(...row)
             container.appendChild(flexRow)
         })
     }
 
     const verticalRender = () => {
-        console.log("====")
         let rwt = container.clientWidth
         // 获取列数
         let column = Math.floor((rwt + spacing) / (baseWidth + spacing))
@@ -200,15 +246,10 @@
 
         images.forEach(item => {
             const image = item.querySelector("img")
-            var color   = item.dataset.color || bgColor
-            var width   = image.dataset.width
-            var height  = image.dataset.height
+            var width   = image.naturalWidth
+            var height  = image.naturalHeight
             var ratio   = columnW / width
             var colH    = height * ratio
-
-            if (color.indexOf('0x') >= 0) {
-                color = "#" + color.substring(color.length - 6)
-            }
 
             var minColNum = getMinCol(table)
     
@@ -222,25 +263,19 @@
             item.style.left = px((columnW + spacing) * minColNum)
             item.style.width = px(columnW)
             item.style.height = px(colH)
-            item.style.backgroundColor = color
     
             table[minColNum] = minHeight + colH + spacing
+
+            container.appendChild(item)
         })
 
         var maxColNum = getMaxCol(table)
         container.style.height = px(table[maxColNum])
-
-        console.log(table)
-        console.log(parentBox.innerHeight || parentBox.clientHeight)
-
-        // 取消滚动条???
-        // if (table[maxColNum] > parentBox.innerHeight || parentBox.clientHeight) {
-        //     setTimeout(() => { resizeEvent() }, 0)
-        // }
     }
 
     const resizeEvent = () => {
-        if (direction === "horizontal") {
+        container.innerHTML = ""
+        if (direction === "h") {
             horizontalRender()
         } else {
             verticalRender()
