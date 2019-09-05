@@ -5,6 +5,14 @@
 ![License](https://img.shields.io/github/license/mashape/apistatus.svg)
 ![Language](https://img.shields.io/badge/language-JavaScript-orange.svg)
 
+# 纵向布局
+
+![v](./img/v.png)
+
+# 横向布局
+
+![h](./img/h.png)
+
 
 # 使用1(根据数据渲染,适用于ajax请求之类)
 
