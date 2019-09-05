@@ -7,7 +7,7 @@
     <title>fall demo</title>
     <style>
         * { margin: 0; padding: 0; }
-        main { overflow: hidden auto; }
+        main { overflow: hidden auto; padding: 20px; }
         
         .img-item {
             border-radius: 4px;
@@ -17,13 +17,9 @@
 </head>
 <body>
     <main>
-        <div class="fall-box">
-            <div><img src="https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/70434228_p0.png" alt=""></div>
-            <div><img src="https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/69989278_p0.png" alt=""></div>
-        </div>
+        <div class="fall-box"></div>
     </main>
-    <!-- <script src="../dist/waterfall.min.js"></script> -->
-    <script src="../src/waterfall.js"></script>
+    <script src="../dist/waterfall.min.js"></script>
     <script>
         var images = [
             "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/69151767_p0.png",
@@ -55,7 +51,7 @@
         ]
 
         waterfall(".fall-box", {
-            // datas: images,
+            datas: images,
             direction: "h",
             parentBox: "main",
             spacing: 20,

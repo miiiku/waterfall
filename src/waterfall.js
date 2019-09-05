@@ -158,12 +158,16 @@
             let w = rwt - (row.length - 1) * spacing;
             let d = 0, l = 0;
 
-            row.forEach(item => {
-                let img = item.querySelector("img");
-                d += img.width / img.height;
-            });
-
-            l = toDecimal(w / d) - accuracy;
+            if (row.length == 1) {
+                l = baseHeight
+            } else {
+                row.forEach(item => {
+                    let img = item.querySelector("img");
+                    d += img.width / img.height;
+                });
+    
+                l = toDecimal(w / d) - accuracy;
+            }
 
             row.forEach((item, index) => {
                 let img = item.querySelector("img");
