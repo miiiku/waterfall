@@ -11,21 +11,21 @@
     var container, images, table, loads;
 
     // 布局类型（垂直|水平）
-    var direction       = options.direction     || "v"
+    var direction       = options.direction         || "h"
     // 间距
-    var spacing         = options.spacing       || 20
+    var spacing         = Number(options.spacing)   || 20
     // 基础宽
-    var baseWidth       = options.baseWidth     || 350
+    var baseWidth       = Number(options.baseWidth) || 350
     // 基础高
-    var baseHeight      = options.height        || 260
+    var baseHeight      = Number(options.height)    || 260
     // 精度（在进行图片等比缩放/放大时，计算出的宽/高可能会有极小的误差，导致超过容器宽/高 吧计算的宽/高减去精度值以确保不会超过容器）
-    var accuracy        = options.accuracy      || 2
+    var accuracy        = Number(options.accuracy)  || 2
     // 图片集合
-    var datas           = options.datas         || null
+    var datas           = options.datas             || null
     // 一行的类名（在direction为vertical生效）
-    var rowClass        = options.rowClass      || ""
+    var rowClass        = options.rowClass          || ""
     // 单个图片的类名
-    var itemClass       = options.itemClass     || ""
+    var itemClass       = options.itemClass         || ""
 
     const throttle = (fn, delay) => {
         let timer = null
