@@ -67,27 +67,32 @@
         if (!images.length) return
         loads = images.length
 
+        let loading = () => {
+            loads --
+            if (loads <= 0) {
+                resizeEvent()
+            }
+        }
+
         images.forEach(item => {
             if (itemClass && !item.classList.contains(itemClass)) {
                 item.classList.add(itemClass)
             }
             let img = item.querySelector("img")
-            img.onload = function () {
-                loads --
-                if (loads <= 0) {
-                    resizeEvent()
+            if (img.complete) {
+                loading()
+            } else {
+                img.onload = function () {
+                    loading()
                 }
-            }
-            img.onerror = function(err) {
-                images.forEach((item, index) => {
-                    let img = item.querySelector("img")
-                    if (img.src === err.target.src) {
-                        images.splice(index, 1)
-                    }
-                })
-                loads --
-                if (loads <= 0) {
-                    resizeEvent()
+                img.onerror = function(err) {
+                    images.forEach((item, index) => {
+                        let img = item.querySelector("img")
+                        if (img.src === err.target.src) {
+                            images.splice(index, 1)
+                        }
+                    })
+                    loading()
                 }
             }
             img.style.display = "block"
@@ -216,8 +221,9 @@
 
         table.forEach((row, index) => {
             let flexRow = document.createElement("div")
+            
+            rowClass && flexRow.classList.add(rowClass)
             flexRow.classList.add("fall-row")
-            flexRow.classList.add(rowClass)
             flexRow.style.display = "flex"
             flexRow.style.justifyContent = "space-between";
 
