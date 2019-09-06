@@ -11,7 +11,7 @@
     var container, images, table, loads;
 
     // 布局类型（垂直|水平）
-    var direction       = options.direction         || "h"
+    var direction       = options.direction         || "v"
     // 间距
     var spacing         = Number(options.spacing)   || 20
     // 基础宽
