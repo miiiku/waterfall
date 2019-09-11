@@ -15,7 +15,7 @@
     // 间距
     var spacing         = Number(options.spacing)   || 20
     // 基础宽
-    var baseWidth       = Number(options.baseWidth) || 350
+    var baseWidth       = Number(options.baseWidth) || 250
     // 基础高
     var baseHeight      = Number(options.height)    || 260
     // 精度（在进行图片等比缩放/放大时，计算出的宽/高可能会有极小的误差，导致超过容器宽/高 吧计算的宽/高减去精度值以确保不会超过容器）

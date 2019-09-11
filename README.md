@@ -104,7 +104,7 @@
     {
         direction   : String,       // 布局模式（v,h）
         datas       : Array,        // 图片的数据 默认: null
-        baseWidth   : Number,       // 图片的基准宽度 默认: 350（垂直布局）
+        baseWidth   : Number,       // 图片的基准宽度 默认: 250（垂直布局）
         baseHeight  : Number,       // 图片的基准高度 默认: 260（水平布局）
         spacing     : Number,       // 间距 默认: 10
         accuracy    : Number,       // 精度 默认: 2
