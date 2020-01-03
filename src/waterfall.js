@@ -1,31 +1,31 @@
 // 一个简单的瀑布流 by guanq
 
-(function(win, factory) {
+(function (win, factory) {
     if (typeof module === 'object' && module.export) {
         module.exports = factory
     } else {
         win.waterfall = factory
     }
-}(window, function waterfall (root, options = {}) {
+}(window, function waterfall(root, options = {}) {
 
     var container, images, table, loads;
 
     // 布局类型（垂直|水平）
-    var direction       = options.direction         || "v"
+    var direction = options.direction || "v"
     // 间距
-    var spacing         = Number(options.spacing)   || 20
+    var spacing = Number(options.spacing) || 20
     // 基础宽
-    var baseWidth       = Number(options.baseWidth) || 250
+    var baseWidth = Number(options.baseWidth) || 250
     // 基础高
-    var baseHeight      = Number(options.height)    || 260
+    var baseHeight = Number(options.height) || 260
     // 精度（在进行图片等比缩放/放大时，计算出的宽/高可能会有极小的误差，导致超过容器宽/高 吧计算的宽/高减去精度值以确保不会超过容器）
-    var accuracy        = Number(options.accuracy)  || 2
+    var accuracy = Number(options.accuracy) || 2
     // 图片集合
-    var datas           = options.datas             || null
+    var datas = options.datas || null
     // 一行的类名（在direction为vertical生效）
-    var rowClass        = options.rowClass          || ""
+    var rowClass = options.rowClass || ""
     // 单个图片的类名
-    var itemClass       = options.itemClass         || ""
+    var itemClass = options.itemClass || ""
 
     const throttle = (fn, delay) => {
         let timer = null
@@ -35,17 +35,27 @@
         }
     }
 
-    const weight = function (weight) {
-        let arrs = Array.from(arguments).splice(1, arguments.length)
+    const weight = function (weight, times, rwc) {
+        let arrs = Array.from(arguments).splice(2, arguments.length)
         let value = weight
         let minValue = weight
-        arrs.forEach(item => {
-            let v = Math.abs(item - weight)
-            if (v < minValue) {
-                minValue = v
-                value = item
+        if (times != 1) {
+            arrs.forEach(item => {
+                let v = Math.abs(item - weight)
+                if (v < minValue) {
+                    minValue = v
+                    value = item
+                } else {
+                    value = rwc
+                }
+            })
+        } else {
+            if (rwc / baseHeight > 2.5) {
+                value = rwc
+            } else {
+                value = -1
             }
-        })
+        }
         return value
     }
 
@@ -56,7 +66,7 @@
     const init = () => {
         if (!root || typeof root != "string") return
 
-        container  = document.querySelector(root)
+        container = document.querySelector(root)
 
         if (datas && datas.length > 0) {
             images = Array.from(buildList())
@@ -68,7 +78,7 @@
         loads = images.length
 
         let loading = () => {
-            loads --
+            loads--
             if (loads <= 0) {
                 resizeEvent()
             }
@@ -85,7 +95,7 @@
                 img.onload = function () {
                     loading()
                 }
-                img.onerror = function(err) {
+                img.onerror = function (err) {
                     images.forEach((item, index) => {
                         let img = item.querySelector("img")
                         if (img.src === err.target.src) {
@@ -155,6 +165,7 @@
         // 获取一行的宽度
         let rwt = container.clientWidth;
         let rwc = 0;
+        let times = 0;
         let row = [], table = [];
 
         const initRow = () => {
@@ -166,11 +177,12 @@
             if (row.length == 1) {
                 l = baseHeight
             } else {
+                //当图片宽度总和不足容器宽度时，通过此方法计算各图片的高度
                 row.forEach(item => {
                     let img = item.querySelector("img");
                     d += img.width / img.height;
                 });
-    
+
                 l = toDecimal(w / d) - accuracy;
             }
 
@@ -182,6 +194,12 @@
 
                 if (index === row.length - 1) {
                     img.style.width = "auto";
+                    if (a > w || img.width / img.height > 2.5) {
+                        img.style.width = w + "px";
+                        img.style.height = img.height / img.width * w + "px";
+                    } else {
+
+                    }
                     item.style.marginRight = 0;
                 } else {
                     img.style.width = a + "px";
@@ -190,6 +208,7 @@
             });
 
             table.push(row)
+            times = 0
             rwc = 0
             row = []
         }
@@ -200,16 +219,20 @@
             let w = toDecimal((baseHeight / image.naturalHeight)) * image.naturalWidth
 
             item.dataset.index = index
-
+            console.log(index)
+            console.log(rwc)
             // 如果已经超过一行度高度，进行宽度竞争
             if (rwc + w > rwt) {
                 let exceed = rwc + w
-                let result = weight(rwt, rwc, exceed)
+                let result = weight(rwt, times, rwc, exceed)
                 // 如果竞争的结果是保持原图个数，进行换行
                 result === rwc && initRow()
+                console.log(rwc)
             }
 
             w += spacing
+
+            times++;
 
             rwc += w
             row.push(item)
@@ -221,7 +244,7 @@
 
         table.forEach((row, index) => {
             let flexRow = document.createElement("div")
-            
+
             rowClass && flexRow.classList.add(rowClass)
             flexRow.classList.add("fall-row")
             flexRow.style.display = "flex"
@@ -249,20 +272,20 @@
             column = images.length
             columnW = (rwt + spacing) / column - spacing
         }
-        
+
         table = {}
 
         for (let i = 0; i < column; i++) { table[i] = 0 }
 
         images.forEach(item => {
             const image = item.querySelector("img")
-            var width   = image.naturalWidth
-            var height  = image.naturalHeight
-            var ratio   = columnW / width
-            var colH    = height * ratio
+            var width = image.naturalWidth
+            var height = image.naturalHeight
+            var ratio = columnW / width
+            var colH = height * ratio
 
             var minColNum = getMinCol(table)
-    
+
             var minHeight = table[minColNum] || 0
 
             image.style.width = "100%"
@@ -273,7 +296,7 @@
             item.style.left = px((columnW + spacing) * minColNum)
             item.style.width = px(columnW)
             item.style.height = px(colH)
-    
+
             table[minColNum] = minHeight + colH + spacing
 
             container.appendChild(item)

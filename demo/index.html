@@ -1,25 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>fall demo</title>
     <style>
-        * { margin: 0; padding: 0; }
-        main { overflow: hidden auto; padding: 20px; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        main {
+            overflow: hidden auto;
+            padding: 20px;
+        }
+
         .img-item {
             border-radius: 4px;
-            overflow: hidden;
+            /* overflow: hidden; */
+            flex: auto;
         }
     </style>
 </head>
+
 <body>
     <main>
         <div class="fall-box"></div>
     </main>
-    <script src="../dist/waterfall.min.js"></script>
+    <!-- <script src="../dist/waterfall.min.js"></script> -->
+    <script src="../src/waterfall.js"></script>
     <script>
         var images = [
             "https://albums-cloud.oss-cn-shanghai.aliyuncs.com/test/69151767_p0.png",
@@ -60,4 +71,5 @@
         })
     </script>
 </body>
+
 </html>
